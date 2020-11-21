@@ -2,9 +2,7 @@
 from flask import Flask,render_template,request,url_for,redirect
 from werkzeug.utils import secure_filename
 import cv2
-import sys
 import os
-import cgi
 
 app=Flask(__name__)
 app.config['UPLOAD_FOLDER']= 'G:/Aadarsh/Data Science/Lab assignment/Assignment 3/webpage/uploads'
