@@ -1,11 +1,29 @@
 #importing different pakages
 from flask import Flask,render_template,request,url_for,redirect
+from flask_mail import Mail,Message 
 from werkzeug.utils import secure_filename
 import cv2
 import os
+# re module provides support 
+# for regular expressions 
+import re 
+  
+# Make a regular expression 
+# for validating an Email 
+regex = "^[a-z0-9]+[\\._]?[a-z0-9]+[@]\\w+[.]\\w{2,3}$"
 
+#app configurations
 app=Flask(__name__)
 app.config['UPLOAD_FOLDER']= 'uploads/'
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT']=587
+app.config['MAIL_USE_TLS']=True
+app.config['MAIL_USE_SSL']=False
+app.config['MAIL_USERNAME']='aadarshgupta875@gmail.com'
+app.config['MAIL_PASSWORD']='aadarsh875'
+app.config['MAIL_DEFAULT_SENDER']='aadarshgupta875@gmail.com'
+
+mail=Mail(app)
 
 @app.route('/',methods=["GET","POST"])
 def start():
@@ -14,8 +32,15 @@ def start():
 @app.route('/gray_scale',methods=["POST"])
 def gray_scale():
 
-	#form=cgi.FieldStorage()
+	#loads file from html
 	videoFile=request.files['filename']
+
+	#retrieves email ID from html
+	recipient_id=str(request.form.get("email"))
+
+	#if invalid email is provided 
+	if not(re.search(regex,recipient_id)):
+		return render_template("gray_scale.html",text="Invalid Email Id")
 
 	#contains filename
 	fn=os.path.basename(videoFile.filename)
@@ -32,13 +57,13 @@ def gray_scale():
 	#checking whether the file is videofile or not 
 	allowed_extensions=[".mp4" , ".mov" , ".avi" , ".webm" , ".wmv" , ".flv"]
 	if (ext.lower() in allowed_extensions)==False:
-		return render_template("gray_scale.html",text="Vedio extension not allowed")
+		return render_template("gray_scale.html",text="not a video file extension")
 
 	#capturing the vedio
 	cap=cv2.VideoCapture(videoFile)
 
 	#output file name
-	output_vedio_file="gray_video"+ext
+	output_vedio_file="gray_video.mp4"
 
 	#making mp4 output vedio file
 	fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -63,8 +88,21 @@ def gray_scale():
 	cap.release()
 	out.release()
 
-	return render_template("gray_scale.html",text="Successfully saved Gray Scaled video with name {}".format(output_vedio_file))
-	
+	#Message Content that is to be emailed 
+	msg=Message(
+		subject='Gray_Scale video file',
+		recipients=[recipient_id],
+		body='Below is your required Gray Scaled video File'
+		)
+
+	#attaching gray scale video file
+	with app.open_resource(output_vedio_file) as output_file:
+		msg.attach(output_vedio_file,'video/mp4',output_file.read())
+
+	#sending mail
+	mail.send(msg)
+
+	return render_template("gray_scale.html",text="Successfully mailed the gray scale videofile to your provided email id")	
 
 if __name__=="__main__":
 	app.run()
