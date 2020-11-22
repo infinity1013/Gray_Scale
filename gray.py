@@ -5,7 +5,7 @@ import cv2
 import os
 
 app=Flask(__name__)
-app.config['UPLOAD_FOLDER']= '/uploads'
+app.config['UPLOAD_FOLDER']= 'uploads/'
 
 @app.route('/',methods=["GET","POST"])
 def start():
@@ -24,7 +24,7 @@ def gray_scale():
 	videoFile.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(videoFile.filename)))
 
 	#contains path where file is saved
-	videoFile=os.path.join(app.config['UPLOAD_FOLDER'])+'/'+fn
+	videoFile=os.path.join(app.config['UPLOAD_FOLDER'])+fn
 
 	#dividing the file location into its filename and extension
 	name, ext =os.path.splitext(videoFile)
