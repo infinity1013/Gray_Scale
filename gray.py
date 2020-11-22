@@ -5,7 +5,7 @@ import cv2
 import os
 
 app=Flask(__name__)
-app.config['UPLOAD_FOLDER']= 'G:/Aadarsh/Data Science/Lab assignment/Assignment 3/webpage/uploads'
+app.config['UPLOAD_FOLDER']= '/uploads'
 
 @app.route('/',methods=["GET","POST"])
 def start():
