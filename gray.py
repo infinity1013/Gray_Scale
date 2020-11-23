@@ -63,7 +63,7 @@ def gray_scale():
 	cap=cv2.VideoCapture(videoFile)
 
 	#output file name
-	output_vedio_file="gray_video.mp4"
+	output_vedio_file="gray_"+fn
 
 	#making mp4 output vedio file
 	fourcc = cv2.VideoWriter_fourcc(*'mp4v')
