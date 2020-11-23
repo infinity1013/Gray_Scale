@@ -14,11 +14,12 @@ regex = "^[a-z0-9]+[\\._]?[a-z0-9]+[@]\\w+[.]\\w{2,3}$"
 
 #app configurations
 app=Flask(__name__)
+app.config['DEBUG']= True
 app.config['UPLOAD_FOLDER']= 'uploads/'
 app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT']=587
-app.config['MAIL_USE_TLS']=True
-app.config['MAIL_USE_SSL']=False
+app.config['MAIL_PORT']=465
+app.config['MAIL_USE_TLS']=False
+app.config['MAIL_USE_SSL']=True
 app.config['MAIL_USERNAME']='aadarshgupta875@gmail.com'
 app.config['MAIL_PASSWORD']='aadarsh875'
 app.config['MAIL_DEFAULT_SENDER']='aadarshgupta875@gmail.com'
