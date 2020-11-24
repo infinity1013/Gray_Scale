@@ -88,21 +88,26 @@ def gray_scale():
 	cap.release()
 	out.release()
 
-	#Message Content that is to be emailed 
-	msg=Message(
-		subject='Gray_Scale video file',
-		recipients=[recipient_id],
-		body='Below is your required Gray Scaled video File'
-		)
+	try:
+		#Message Content that is to be emailed 
+		msg=Message(
+			subject='Gray_Scale video file',
+			recipients=[recipient_id],
+			body='Below is your required Gray Scaled video File'
+			)
 
-	#attaching gray scale video file
-	with app.open_resource(output_vedio_file) as output_file:
-		msg.attach(output_vedio_file,'video/mp4',output_file.read())
+		#attaching gray scale video file
+		with app.open_resource(output_vedio_file) as output_file:
+			msg.attach(output_vedio_file,'video/mp4',output_file.read())
 
-	#sending mail
-	mail.send(msg)
+		#sending mail
+		mail.send(msg)
 
-	return render_template("gray_scale.html",text="Successfully mailed the gray scale videofile to your provided email id")	
+		return render_template("gray_scale.html",text="Successfully mailed the gray scale videofile to your provided email id")	
 
+	except Exception:
+		return render_template("gray.html",text="Sorry!!! Currently application is out of service")
+
+		
 if __name__=="__main__":
 	app.run()
