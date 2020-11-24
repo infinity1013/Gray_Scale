@@ -106,7 +106,7 @@ def gray_scale():
 		return render_template("gray_scale.html",text="Successfully mailed the gray scale videofile to your provided email id")	
 
 	except Exception:
-		return render_template("gray.html",text="Sorry!!! Currently application is out of service")
+		return render_template("gray_scale.html",text="Sorry!!! Currently application is out of service")
 
 		
 if __name__=="__main__":
