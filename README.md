@@ -1,4 +1,4 @@
-This application is used for converting the input video file to grya scale
+This application is used for converting the input video file to gray scale
 
 I have deployed the model on heroku platform You can run this on your local machine by using https://grayscale-api.herokuapp.com/
 Required gray scale file will be mailed on your specified google account
