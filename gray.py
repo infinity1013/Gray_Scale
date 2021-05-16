@@ -95,7 +95,7 @@ def gray_scale():
 	out.release()
 
 	try:
-		return send_file(output_vedio_filename,as_attachment=True)
+		return send_file(output_vedio_filename,as_attachment=True,text1="Downloaded Successfully",text2="Download")
 	
 		#Message Content that is to be emailed 
 		msg=Message(
