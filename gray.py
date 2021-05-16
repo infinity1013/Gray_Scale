@@ -1,7 +1,8 @@
 #importing different pakages
-from flask import Flask,render_template,request,url_for,redirect
+from flask import Flask,render_template,request,url_for,redirect,send_file
 from flask_mail import Mail,Message 
 from werkzeug.utils import secure_filename
+import time
 import cv2
 import os
 # re module provides support 
@@ -13,7 +14,8 @@ import re
 regex = "^[a-z0-9]+[\\._]?[a-z0-9]+[@]\\w+[.]\\w{2,3}$"
 
 #app configurations
-app=Flask(__name__)
+application=app=Flask(__name__)
+
 app.config.update(dict(
 	UPLOAD_FOLDER= 'uploads/',
 	MAIL_SERVER='smtp.gmail.com',
@@ -26,6 +28,7 @@ app.config.update(dict(
 ))
 
 mail=Mail(app)
+global output_vedio_filename
 
 @app.route('/',methods=["GET","POST"])
 def start():
@@ -33,6 +36,8 @@ def start():
 
 @app.route('/gray_scale',methods=["POST"])
 def gray_scale():
+
+	global output_vedio_filename
 
 	#loads file from html
 	videoFile=request.files['filename']
@@ -65,7 +70,8 @@ def gray_scale():
 	cap=cv2.VideoCapture(videoFile)
 
 	#output file name
-	output_vedio_file="gray_"+fn
+	output_vedio_file="gray_"+time.strftime("%Y%m%d_%H%M%S")+ext
+	output_vedio_filename=output_vedio_file
 
 	#making mp4 output vedio file
 	fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -105,11 +111,15 @@ def gray_scale():
 		#sending mail
 		mail.send(msg)
 
-		return render_template("gray_scale.html",text="Successfully mailed the gray scale videofile to your provided email id")	
+		return render_template("gray_scale.html",text1="Successfully mailed the gray scale videofile to your provided email id",text2="Download")	
 
 	except Exception:
-		return render_template("gray_scale.html",text="Sorry!!! Unable to send to mail... Gmail have protections in place to avoid their service being used to deliver spam")
+		return render_template("gray_scale.html",text1="Sorry!!! Unable to send to mail... Gmail have protections to avoid their service being used to deliver spam",text2="Download")
 
+@app.route('/download',methods=["GET"])
+def download_file():
+	global output_vedio_filename
+	return send_file(output_vedio_filename,as_attachment=True)
 		
 if __name__=="__main__":
 	app.run()
