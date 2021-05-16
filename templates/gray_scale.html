@@ -39,20 +39,23 @@
 		  		</div>
 			</form>
 		</div>
+		<div id="downld">
+			<a id="dld" href="/download" download>{{text2}}</a>
+		</div>
 	</div>
-	 
 	<br>
 	<br>
 	<div id="txt">
 		<h5>Result</h5>
-		{{text}}
+		{{text1}}
 	</div>
 	<script>
-    		$('#file-upload').change(function() {
+    	$('#file-upload').change(function() {
 		    var i = $(this).prev('label').clone();
 		    var file = $('#file-upload')[0].files[0].name;
 		  	$(this).prev('label').text(file);
 		});
+
 		function myFunction() {
 		      document.getElementById("myDropdown").classList.toggle("show");
 		}
@@ -68,6 +71,7 @@
 			    }
 			}
 		};
+
 	</script>
 </body>
 </html>
