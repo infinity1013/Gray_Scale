@@ -23,8 +23,19 @@ body{
 	border: 2px solid orange;
 	background-color: #d6d6c2;
 	margin: auto;
-	margin-top:100px;
+	margin-top:30px;
 	width:440px;
+}
+
+#downld{
+	padding-top:50px;
+}
+
+#dld{
+	margin-bottom: 10px;
+	margin-right: 10px;
+	margin-left: 70%;
+	color: orange;
 }
 
 #txt{
@@ -33,7 +44,8 @@ body{
 	margin:auto;
 	padding:5px;
 	width:280px;
-	height:100px;
+	height:120px;
+	text-align: justify;
 }
 
 h5{
@@ -50,10 +62,10 @@ h5{
 }
 
 .custom {
-	border: 2px solid orange;
-	display: inline-block;
-	padding: 2px 2px;
-	cursor: pointer;
+  border: 2px solid orange;
+  display: inline-block;
+  padding: 2px 2px;
+  cursor: pointer;
 }
 
 #bd1,#bd2{
@@ -63,6 +75,7 @@ h5{
 #bd{
 	margin-left:70px;
 }
+
 
 .bd-placeholder-img {
 	font-size: 1.125rem;
