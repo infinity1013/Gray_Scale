@@ -16,16 +16,14 @@ regex = "^[a-z0-9]+[\\._]?[a-z0-9]+[@]\\w+[.]\\w{2,3}$"
 #app configurations
 application=app=Flask(__name__)
 
-app.config.update(dict(
-	UPLOAD_FOLDER= 'uploads/',
-	MAIL_SERVER='smtp.gmail.com',
-	MAIL_PORT=587,
-	MAIL_USE_TLS=True,
-	MAIL_USE_SSL=False,
-	MAIL_USERNAME='aadarshgupta875@gmail.com',
-	MAIL_PASSWORD=os.environ.get('password'),
-	MAIL_DEFAULT_SENDER='aadarshgupta875@gmail.com',
-))
+app.config['UPLOAD_FOLDER']= 'uploads/'
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT']=587
+app.config['MAIL_USE_TLS']=True
+app.config['MAIL_USE_SSL']=False
+app.config['MAIL_USERNAME']='aadarshgupta875@gmail.com'
+app.config['MAIL_PASSWORD']=os.environ.get('password')
+app.config['MAIL_DEFAULT_SENDER']='aadarshgupta875@gmail.com'
 
 mail=Mail(app)
 global output_vedio_filename
